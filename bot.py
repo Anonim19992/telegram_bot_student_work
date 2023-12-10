@@ -16,8 +16,7 @@ def start_message(message):
     markup.add(item1, item2, item3)
     bot.send_message(message.chat.id, 'Выберите что вам надо', reply_markup=markup)
 
-@bot.message_handler(content_types='text')
-def message_reply(message):
+def second_menu(message):
     if message.text == "Финансовые показатели":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         item1 = types.KeyboardButton("Таблица")
@@ -27,6 +26,13 @@ def message_reply(message):
         item5 = types.KeyboardButton("Назад")
         markup.add(item1, item2, item3, item4, item5)
         bot.send_message(message.chat.id, 'Выберите что вам надо', reply_markup=markup)
+
+@bot.message_handler(content_types='text')
+def message_reply(message):
+    if message.text == "Финансовые показатели":
+        second_menu(message)
+    if message.text == "Назад":
+        start_message(message)
     if message.text == "Состояние авто":
         photo = open('Состояние авто.JPG', 'rb')
         bot.send_photo(message.chat.id, photo)
